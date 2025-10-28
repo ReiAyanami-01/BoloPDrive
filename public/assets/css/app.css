@@ -1,0 +1,200 @@
+/* ====== Base / Reset suave ====== */
+:root {
+  --nerv-red: #e53935;        /* NERV rojo */
+  --nerv-dark: #0f1012;       /* Fondo oscuro NERV */
+  --nerv-mid:  #1a1c21;
+  --text: #eaeaea;
+  --text-dark: #1a1a1a;
+
+  /* Valores por defecto (sobrescritos por rol) */
+  --bg: #f7f7f7;
+  --surface: #ffffff;
+  --primary: #4f46e5;
+  --primary-2: #22c55e;
+  --accent: #a855f7;
+  --border: #e5e7eb;
+  --muted: #6b7280;
+
+  --radius: 10px;
+  --shadow: 0 8px 20px rgba(0,0,0,.08);
+  --shadow-strong: 0 14px 34px rgba(0,0,0,.12);
+
+  --btn-scale: 1.02;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text-dark);
+  background: var(--bg);
+  transition: background .3s ease, color .3s ease;
+}
+
+/* ====== Barra superior estilo NERV ====== */
+header {
+  background: linear-gradient(90deg, var(--nerv-dark), #14161b);
+  border-bottom: 1px solid #22252d;
+  color: var(--text);
+}
+header strong {
+  letter-spacing: .5px;
+}
+
+/* Pequeña “luz” NERV bajo el header */
+header::after {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--nerv-red) 40%, var(--nerv-red) 60%, transparent 100%);
+  box-shadow: 0 0 12px rgba(229,57,53,.55);
+}
+
+/* ====== Sidebar ====== */
+aside {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+aside a {
+  display: block;
+  padding: 8px 6px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-dark);
+  transition: transform .12s ease, background .2s ease, color .2s ease;
+}
+aside a:hover {
+  background: rgba(0,0,0,.04);
+  transform: translateX(2px);
+}
+
+/* Activo (opcional, si agregas clase .active al link) */
+aside a.active {
+  background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.07));
+  border: 1px solid var(--border);
+}
+
+/* ====== Tipografía y contenedores ====== */
+main h2 { margin: 10px 0 14px; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+/* ====== Botones y elementos interactivos ====== */
+button, .btn {
+  appearance: none;
+  border: 0;
+  outline: 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transform: translateZ(0);
+  transition: transform .08s ease, filter .2s ease, box-shadow .2s ease, background .2s ease;
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+button:hover, .btn:hover {
+  transform: scale(var(--btn-scale));
+  filter: brightness(1.05);
+  box-shadow: var(--shadow-strong);
+}
+button:active, .btn:active { transform: scale(.98); }
+
+button.secondary {
+  background: var(--accent);
+}
+
+/* Etiquetas y tablas admin */
+table { border-collapse: collapse; }
+table th, table td { border-color: var(--border); }
+thead tr { background: linear-gradient(180deg,#fafafa,#f3f4f6); }
+
+/* ====== Animaciones suaves ====== */
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+main, .card, #map, table { animation: floatIn .25s ease both; }
+
+/* ====== Roles: paletas ====== */
+
+/* Usuario + Conductor → EVA-00 (amarillo con acento azul) */
+body[data-role="usuario"],
+body[data-role="conductor"] {
+  --bg: #fffaf0;               /* marfil cálido */
+  --surface: #ffffff;
+  --border: #f1e9c6;
+  --primary: #f0c300;          /* amarillo EVA-00 */
+  --accent: #2e4a9e;           /* azul EVA-00 */
+  --muted: #7a7355;
+}
+
+/* Administrador → EVA-02 (rojo/naranja) */
+body[data-role="admin"] {
+  --bg: #fff5f5;
+  --surface: #ffffff;
+  --border: #ffd1d1;
+  --primary: #c40000;          /* rojo EVA-02 */
+  --accent: #ff6f00;           /* naranja EVA-02 */
+  --muted: #804040;
+}
+
+/* ====== Elementos Leaflet ligeros ====== */
+.leaflet-control-attribution {
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+  padding: 0 6px;
+  border: 1px solid var(--border);
+}
+
+/* ====== Chips y badges (útil para estados) ====== */
+.badge {
+  display: inline-block; padding: 4px 8px;
+  border-radius: 999px; font-size: 12px; font-weight: 600;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,.04);
+}
+.badge.primary { background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.08)); border-color: rgba(0,0,0,.08); }
+
+/* ====== Inputs ====== */
+input, select {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  transition: border .2s ease, box-shadow .2s ease;
+}
+input:focus, select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(240,195,0,.2); /* se ajusta con var(--primary) visualmente */
+}
+
+/* Enlaces dentro de main */
+main a { color: var(--accent); }
+main a:hover { text-decoration: underline; }
+
+/* Layout del menú (en cualquier estado) */
+aside nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Ícono y texto dentro del enlace */
+aside a .ico { width: 20px; display: inline-flex; justify-content: center; }
+aside a .txt { display: inline; }
+
+/* Estado colapsado: solo íconos, sin “...” */
+body.menu-collapsed aside { width: 64px !important; }
+body.menu-collapsed main { margin-left: 82px !important; } /* ajusta si tu main tiene inline styles */
+body.menu-collapsed aside a { justify-content: center; overflow: visible; text-overflow: clip; white-space: normal; }
+body.menu-collapsed aside a .txt { display: none; }   /* 👈 oculta solo el texto */
